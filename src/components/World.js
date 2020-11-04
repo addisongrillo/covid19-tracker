@@ -6,9 +6,11 @@ import './World.css'
 
 function World() {
     const [world, setWorld] = useState(null);
-    const [worldHistory, setWorldHistory] = useState(null);
+    //const [worldHistory, setWorldHistory] = useState(null);
     const [worldCases, setWorldCases] = useState([]);
     const [worldNewCases, setWorldNewCases] = useState([]);
+    const [worldDeaths, setWorldDeaths] = useState([]);
+    const [worldNewDeaths, setWorldNewDeaths] = useState([]);
 
     const getWorldStats = async () => {
         //changeLoading(true);
@@ -32,12 +34,13 @@ function World() {
       })
     };
 
-    const getWorldHistory =  () => {
+    const getWorldHistory = async () => {
         //changeLoading(true);
-         axios(
+        await axios(
           `https://disease.sh/v3/covid-19/historical/all?lastdays=50000`
         ).then((res =>{
-            setWorldHistory(res.data);
+            //setWorldHistory(res.data);
+
             let precases=[];
             let preNewCases=[];
             for (var key in res.data.cases) {
@@ -46,11 +49,25 @@ function World() {
                 }
             }
             setWorldCases(precases);
-            worldCases.map((day, index) =>{
-            index==0 ? preNewCases.push({"day":day.day, "cases":day.cases}) : 
-            preNewCases.push({"day":day.day, "cases":(day.cases-(worldCases[index-1].cases))}) 
+            precases.map((day, index) =>{
+            index===0 ? preNewCases.push({"day":day.day, "cases":day.cases}) : 
+            preNewCases.push({"day":day.day, "cases":(day.cases-(precases[index-1].cases))}) 
             })
             setWorldNewCases(preNewCases)
+
+            let preDeaths=[];
+            let preNewDeaths=[];
+            for (var key in res.data.deaths) {
+                if (res.data.deaths.hasOwnProperty(key)) {
+                    preDeaths.push({"day":key, "deaths":res.data.deaths[key]})
+                }
+            }
+            setWorldDeaths(preDeaths);
+            preDeaths.map((day, index) =>{
+            index===0 ? preNewDeaths.push({"day":day.day, "deaths":day.deaths}) : 
+            preNewDeaths.push({"day":day.day, "deaths":(day.deaths-(preDeaths[index-1].deaths))}) 
+            })
+            setWorldNewDeaths(preNewDeaths)
         //changeLoading(false)
         })
     
@@ -65,20 +82,6 @@ function World() {
           //changeLoading(false)
       })
     };
-    const formatCharts = () =>{
-        // for (var key in hist.cases) {
-        //     if (hist.cases.hasOwnProperty(key)) {
-        //         //console.log(key + " -> " + worldHistory.cases[key]);
-        //         worldCases.push({"day":key, "cases":hist.cases[key]})
-        //     }
-        // }
-        console.log("format")
-        
-        // worldCases.map((day, index) =>{
-        //     index==0 ? worldNewCases.push({"day":day.day, "cases":day.cases}) : 
-        //     worldNewCases.push({"day":day.day, "cases":(day.cases-(worldCases[index-1].cases))}) 
-        // })
-    }
     
       useEffect(() => {
         getWorldStats();
@@ -115,6 +118,26 @@ function World() {
                 <h1>New Cases</h1>
                 <Chart height={400} autoFit data={worldNewCases} interactions={['active-region']}  >
                     <Interval position="day*cases" />
+                    <Tooltip shared />
+                </Chart>
+            </div>
+        }
+        {
+            worldDeaths.length > 0 &&
+            <div>
+                <h1>Total Deaths</h1>
+                <Chart height={400} autoFit data={worldDeaths} interactions={['active-region']}  >
+                    <Interval position="day*deaths" />
+                    <Tooltip shared />
+                </Chart>
+            </div>
+        }
+        {
+            worldNewDeaths.length > 0 &&
+            <div>
+                <h1>New Deaths</h1>
+                <Chart height={400} autoFit data={worldNewDeaths} interactions={['active-region']}  >
+                    <Interval position="day*deaths" />
                     <Tooltip shared />
                 </Chart>
             </div>
