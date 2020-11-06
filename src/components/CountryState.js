@@ -203,6 +203,11 @@ function CountryState(props) {
     }
     useEffect(() => {
         getCountryStateChoices()
+        setCountryState(null)
+        setCountryStateCases([])
+        setCountryStateNewCases([])
+        setCountryStateDeaths([])
+        setCountryStateNewDeaths([])
     }, [props.type]);
     return (
         <>
