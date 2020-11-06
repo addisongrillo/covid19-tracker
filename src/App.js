@@ -10,6 +10,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -63,6 +64,7 @@ function App(props) {
   const theme = useTheme();
   const linkUrls = ['/', '/Countries', '/States']
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -139,15 +141,16 @@ function App(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
+        {loading && <CircularProgress className="Spinner" size="6rem" />}
         <Switch>
           <Route path="/Countries">
-          <CountryState type="Country"/>
+          <CountryState setLoading={setLoading} type="Country"/>
           </Route>
           <Route path="/States">
-            <CountryState type="State"/>
+            <CountryState setLoading={setLoading} type="State"/>
           </Route>
           <Route path="/">
-            <World />
+            <World setLoading={setLoading}/>
           </Route>
         </Switch>
       </main>

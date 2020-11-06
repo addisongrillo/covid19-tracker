@@ -53,21 +53,21 @@ function World() {
             }
             setWorldCases(precases);
             precases.map((day, index) => {
-                index === 0 ? preNewCases.push({ "day": day.day, "cases": day.cases }) :
+                return index === 0 ? preNewCases.push({ "day": day.day, "cases": day.cases }) :
                     preNewCases.push({ "day": day.day, "cases": (day.cases - (precases[index - 1].cases)) })
             })
             setWorldNewCases(preNewCases)
 
             let preDeaths = [];
             let preNewDeaths = [];
-            for (var key in res.data.deaths) {
-                if (res.data.deaths.hasOwnProperty(key)) {
-                    preDeaths.push({ "day": key, "deaths": res.data.deaths[key] })
+            for (var key2 in res.data.deaths) {
+                if (res.data.deaths.hasOwnProperty(key2)) {
+                    preDeaths.push({ "day": key2, "deaths": res.data.deaths[key2] })
                 }
             }
             setWorldDeaths(preDeaths);
             preDeaths.map((day, index) => {
-                index === 0 ? preNewDeaths.push({ "day": day.day, "deaths": day.deaths }) :
+                return index === 0 ? preNewDeaths.push({ "day": day.day, "deaths": day.deaths }) :
                     preNewDeaths.push({ "day": day.day, "deaths": (day.deaths - (preDeaths[index - 1].deaths)) })
             })
             setWorldNewDeaths(preNewDeaths)

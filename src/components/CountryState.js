@@ -24,12 +24,14 @@ function CountryState(props) {
     const [CountryStateDeaths, setCountryStateDeaths] = useState([]);
     const [CountryStateNewDeaths, setCountryStateNewDeaths] = useState([]);
 
-    
+    const changeLoading = (val) =>{
+        props.setLoading(val);
+    }
     
     const getCountryStateStats = async (val) => {
-        //changeLoading(true);
+        changeLoading(true);
         let arg=""
-        if(props.type=="Country"){
+        if(props.type === "Country"){
             arg="countries"
         }else{
             arg="states"
@@ -38,7 +40,7 @@ function CountryState(props) {
             `https://disease.sh/v3/covid-19/${arg}/${val}`
         ).then((res => {
             setCountryState(res.data);
-            //changeLoading(false)
+            changeLoading(false)
         })
 
         ).catch((error) => {
@@ -49,20 +51,21 @@ function CountryState(props) {
             } else {
                 console.log('Error', error.message);
             }
-            //changeLoading(false)
+            changeLoading(false)
         })
     };
     const getCountryStateChoices = async () => {
-        if(props.type=="Country"){
+        changeLoading(true)
+        if(props.type === "Country"){
             await axios(
                 `https://disease.sh/v3/covid-19/countries`
             ).then((res => {
                 let choices=[]
                 res.data.map((region) =>{
-                    choices.push(region.country)
+                    return choices.push(region.country)
                 })
                 setCSChoiceOptions(choices);
-                //changeLoading(false)
+                changeLoading(false)
             })   
 
         ).catch((error) => {
@@ -73,7 +76,7 @@ function CountryState(props) {
             } else {
                 console.log('Error', error.message);
             }
-            //changeLoading(false)
+            changeLoading(false)
         })
         }else{
             await axios(
@@ -81,11 +84,11 @@ function CountryState(props) {
             ).then((res => {
                 let choices=[]
                 res.data.map((region) =>{
-                    choices.push(region.state)
+                    return choices.push(region.state)
                 })
                 choices.sort();
                 setCSChoiceOptions(choices);
-                //changeLoading(false)
+                changeLoading(false)
             })   
 
         ).catch((error) => {
@@ -96,15 +99,14 @@ function CountryState(props) {
             } else {
                 console.log('Error', error.message);
             }
-            //changeLoading(false)
+            changeLoading(false)
         })
         }
     };
 
     const getCountryStateHistory = async (val) => {
-        //changeLoading(true);
-        let arg=""
-        if(props.type=="Country"){
+        changeLoading(true);
+        if(props.type === "Country"){
             await axios(
                 `https://disease.sh/v3/covid-19/historical/${val}?lastdays=50000`
             ).then((res => {
@@ -119,25 +121,25 @@ function CountryState(props) {
                 }
                 setCountryStateCases(precases);
                 precases.map((day, index) => {
-                    index === 0 ? preNewCases.push({ "day": day.day, "cases": day.cases }) :
-                        preNewCases.push({ "day": day.day, "cases": (day.cases - (precases[index - 1].cases)) })
+                    return index === 0 ? preNewCases.push({ "day": day.day, "cases": day.cases }) :
+                            preNewCases.push({ "day": day.day, "cases": (day.cases - (precases[index - 1].cases)) })
                 })
                 setCountryStateNewCases(preNewCases)
     
                 let preDeaths = [];
                 let preNewDeaths = [];
-                for (var key in res.data.timeline.deaths) {
-                    if (res.data.timeline.deaths.hasOwnProperty(key)) {
-                        preDeaths.push({ "day": key, "deaths": res.data.timeline.deaths[key] })
+                for (var key2 in res.data.timeline.deaths) {
+                    if (res.data.timeline.deaths.hasOwnProperty(key2)) {
+                        preDeaths.push({ "day": key2, "deaths": res.data.timeline.deaths[key2] })
                     }
                 }
                 setCountryStateDeaths(preDeaths);
                 preDeaths.map((day, index) => {
-                    index === 0 ? preNewDeaths.push({ "day": day.day, "deaths": day.deaths }) :
+                        return index === 0 ? preNewDeaths.push({ "day": day.day, "deaths": day.deaths }) :
                         preNewDeaths.push({ "day": day.day, "deaths": (day.deaths - (preDeaths[index - 1].deaths)) })
                 })
                 setCountryStateNewDeaths(preNewDeaths)
-                //changeLoading(false)
+                changeLoading(false)
             })
     
             ).catch((error) => {
@@ -148,7 +150,7 @@ function CountryState(props) {
                 } else {
                     console.log('Error', error.message);
                 }
-                //changeLoading(false)
+                changeLoading(false)
             })
         }else{
             await axios(
@@ -157,30 +159,27 @@ function CountryState(props) {
                 //setCountryStateHistory(res.data);
                 let precases = [];
                 let preNewCases = [];
-                console.log(res.data)
                 res.data.map((day) => {
-                    precases.push({ "day": day.date, "cases": day.cases })
+                    return precases.push({ "day": day.date, "cases": day.cases })
                 })
-                console.log(precases)
                 setCountryStateCases(precases);
                 precases.map((day, index) => {
-                    index === 0 ? preNewCases.push({ "day": day.day, "cases": day.cases }) :
-                        preNewCases.push({ "day": day.day, "cases": (day.cases - (precases[index - 1].cases)) })
+                    return index === 0 ? preNewCases.push({ "day": day.day, "cases": day.cases }) :
+                           preNewCases.push({ "day": day.day, "cases": (day.cases - (precases[index - 1].cases)) })
                 })
                 setCountryStateNewCases(preNewCases)
-                console.log(preNewCases)
                 let preDeaths = [];
                 let preNewDeaths = [];
                 res.data.map((day) => {
-                    preDeaths.push({ "day": day.date, "deaths": day.deaths })
+                    return preDeaths.push({ "day": day.date, "deaths": day.deaths })
                 })   
                 setCountryStateDeaths(preDeaths);
                 preDeaths.map((day, index) => {
-                    index === 0 ? preNewDeaths.push({ "day": day.day, "deaths": day.deaths }) :
-                        preNewDeaths.push({ "day": day.day, "deaths": (day.deaths - (preDeaths[index - 1].deaths)) })
+                    return index === 0 ? preNewDeaths.push({ "day": day.day, "deaths": day.deaths }) :
+                           preNewDeaths.push({ "day": day.day, "deaths": (day.deaths - (preDeaths[index - 1].deaths)) })
                 })
                 setCountryStateNewDeaths(preNewDeaths)
-                //changeLoading(false)
+                changeLoading(false)
             })
     
             ).catch((error) => {
@@ -191,7 +190,7 @@ function CountryState(props) {
                 } else {
                     console.log('Error', error.message);
                 }
-                //changeLoading(false)
+                changeLoading(false)
             })
         }
         
@@ -222,6 +221,7 @@ function CountryState(props) {
                 onChange={handleChange}
                 >
                     {CSChoiceOptions.map((x) => (
+
                         <MenuItem key={x} value={x} >
                         {x}
                         </MenuItem>
@@ -235,12 +235,12 @@ function CountryState(props) {
                 {CountryState != null &&
                     <Stats stats={CountryState} />
                 }
-
+                <div>
                 {
                     CountryStateCases.length > 0 &&
                     <div>
                         <h1>Total Cases</h1>
-                        <Chart height={400} autoFit data={CountryStateCases} interactions={['active-region']}  >
+                        <Chart className="charts" height={400} autoFit="true" forceUpdate="true" data={CountryStateCases} interactions={['active-region']}  >
                             <Interval position="day*cases" />
                             <Tooltip shared />
                         </Chart>
@@ -250,7 +250,7 @@ function CountryState(props) {
                     CountryStateNewCases.length > 0 &&
                     <div>
                         <h1>New Cases</h1>
-                        <Chart height={400} autoFit data={CountryStateNewCases} interactions={['active-region']}  >
+                        <Chart className="charts" height={400} autoFit="true" forceUpdate="true" data={CountryStateNewCases} interactions={['active-region']}  >
                             <Interval position="day*cases" />
                             <Tooltip shared />
                         </Chart>
@@ -260,7 +260,7 @@ function CountryState(props) {
                     CountryStateDeaths.length > 0 &&
                     <div>
                         <h1>Total Deaths</h1>
-                        <Chart height={400} autoFit data={CountryStateDeaths} interactions={['active-region']}  >
+                        <Chart className="charts" height={400} autoFit="true" forceUpdate="true" data={CountryStateDeaths} interactions={['active-region']}  >
                             <Interval position="day*deaths" />
                             <Tooltip shared />
                         </Chart>
@@ -270,12 +270,13 @@ function CountryState(props) {
                     CountryStateNewDeaths.length > 0 &&
                     <div>
                         <h1>New Deaths</h1>
-                        <Chart height={400} autoFit data={CountryStateNewDeaths} interactions={['active-region']}  >
+                        <Chart className="charts" height={400} autoFit="true" forceUpdate="true" data={CountryStateNewDeaths} interactions={['active-region']}  >
                             <Interval position="day*deaths" />
                             <Tooltip shared />
                         </Chart>
                     </div>
                 }
+                </div>
             </div>
         </>
     );
