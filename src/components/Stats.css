@@ -1,0 +1,17 @@
+.statsCard{
+    display: flex;
+    margin-top: 20px;
+}
+
+.statsCardContent{
+    display: flex;
+}
+.statTable{
+    width:350px;
+}
+.statType{
+    margin:20px;
+}
+.keysAndNumbers{
+    margin-left: 50px;
+}

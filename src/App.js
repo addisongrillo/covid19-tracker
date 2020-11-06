@@ -19,6 +19,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import World from './components/World'
+import CountryState from './components/CountryState'
 import './App.css'
 
 const drawerWidth = 200;
@@ -139,16 +140,16 @@ function App(props) {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Switch>
-                <Route path="/Countries">
-                  <h1>Countries</h1>
-                </Route>
-                <Route path="/States">
-                  <h1>States</h1>
-                </Route>
-                <Route path="/">
-                  <World/>
-                </Route>
-              </Switch>
+          <Route path="/Countries">
+          <CountryState type="Country"/>
+          </Route>
+          <Route path="/States">
+            <CountryState type="State"/>
+          </Route>
+          <Route path="/">
+            <World />
+          </Route>
+        </Switch>
       </main>
     </div>
   );
