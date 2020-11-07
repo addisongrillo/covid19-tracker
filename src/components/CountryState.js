@@ -112,7 +112,6 @@ function CountryState(props) {
             await axios(
                 `https://disease.sh/v3/covid-19/historical/${val}?lastdays=50000`
             ).then((res => {
-                //setCountryStateHistory(res.data);
     
                 let precases = [];
                 let preNewCases = [];
@@ -158,7 +157,6 @@ function CountryState(props) {
             await axios(
                 `https://disease.sh/v3/covid-19/nyt/states/${val}?lastdays=50000`
             ).then((res => {
-                //setCountryStateHistory(res.data);
                 let precases = [];
                 let preNewCases = [];
                 res.data.map((day) => {

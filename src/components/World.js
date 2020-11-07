@@ -9,9 +9,8 @@ import './World.css'
 
 
 
-function World() {
+function World(props) {
     const [world, setWorld] = useState(null);
-    //const [worldHistory, setWorldHistory] = useState(null);
     const [worldCases, setWorldCases] = useState([]);
     const [worldNewCases, setWorldNewCases] = useState([]);
     const [worldDeaths, setWorldDeaths] = useState([]);
@@ -19,13 +18,17 @@ function World() {
 
     const mobile = (window.innerWidth<=600);
 
+    const changeLoading = (val) =>{
+        props.setLoading(val);
+    }
+    
     const getWorldStats = async () => {
-        //changeLoading(true);
+        changeLoading(true);
         await axios(
             `https://disease.sh/v3/covid-19/all`
         ).then((res => {
             setWorld(res.data);
-            //changeLoading(false)
+            changeLoading(false)
         })
 
         ).catch((error) => {
@@ -36,16 +39,15 @@ function World() {
             } else {
                 console.log('Error', error.message);
             }
-            //changeLoading(false)
+            changeLoading(false)
         })
     };
 
     const getWorldHistory = async () => {
-        //changeLoading(true);
+        changeLoading(true);
         await axios(
             `https://disease.sh/v3/covid-19/historical/all?lastdays=50000`
         ).then((res => {
-            //setWorldHistory(res.data);
 
             let precases = [];
             let preNewCases = [];
@@ -74,7 +76,7 @@ function World() {
                     preNewDeaths.push({ "day": day.day, "deaths": (day.deaths - (preDeaths[index - 1].deaths)) })
             })
             setWorldNewDeaths(preNewDeaths)
-            //changeLoading(false)
+            changeLoading(false)
         })
 
         ).catch((error) => {
@@ -85,7 +87,7 @@ function World() {
             } else {
                 console.log('Error', error.message);
             }
-            //changeLoading(false)
+            changeLoading(false)
         })
     };
 

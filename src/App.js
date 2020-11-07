@@ -70,8 +70,14 @@ function App(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const closeDrawer = () =>{
+    if (mobileOpen){
+      setMobileOpen(!mobileOpen);
+    }
+  }
+
   const drawer = (
-    <div>
+    <div onClick={closeDrawer}>
       <div className={classes.toolbar} />
       <Divider />
       <List>
