@@ -16,6 +16,9 @@ function World() {
     const [worldNewCases, setWorldNewCases] = useState([]);
     const [worldDeaths, setWorldDeaths] = useState([]);
     const [worldNewDeaths, setWorldNewDeaths] = useState([]);
+
+    const mobile = (window.innerWidth<=600);
+
     const getWorldStats = async () => {
         //changeLoading(true);
         await axios(
@@ -102,7 +105,7 @@ function World() {
                     worldCases.length > 0 &&
                     <div>
                         <h1>Total Cases</h1>
-                        <Chart height={400} autoFit data={worldCases} interactions={['active-region']}  >
+                        <Chart height={mobile == false ? 400: 200} autoFit="true" data={worldCases} interactions={['active-region']}  >
                             <Interval position="day*cases" />
                             <Tooltip shared />
                         </Chart>
@@ -112,7 +115,7 @@ function World() {
                     worldNewCases.length > 0 &&
                     <div>
                         <h1>New Cases</h1>
-                        <Chart height={400} autoFit data={worldNewCases} interactions={['active-region']}  >
+                        <Chart height={mobile == false ? 400: 200} autoFit="true" data={worldNewCases} interactions={['active-region']}  >
                             <Interval position="day*cases" />
                             <Tooltip shared />
                         </Chart>
@@ -122,7 +125,7 @@ function World() {
                     worldDeaths.length > 0 &&
                     <div>
                         <h1>Total Deaths</h1>
-                        <Chart height={400} autoFit data={worldDeaths} interactions={['active-region']}  >
+                        <Chart height={mobile == false ? 400: 200} autoFit="true" data={worldDeaths} interactions={['active-region']}  >
                             <Interval position="day*deaths" />
                             <Tooltip shared />
                         </Chart>
@@ -132,7 +135,7 @@ function World() {
                     worldNewDeaths.length > 0 &&
                     <div>
                         <h1>New Deaths</h1>
-                        <Chart height={400} autoFit data={worldNewDeaths} interactions={['active-region']}  >
+                        <Chart height={mobile == false ? 400: 200} autoFit="true" data={worldNewDeaths} interactions={['active-region']}  >
                             <Interval position="day*deaths" />
                             <Tooltip shared />
                         </Chart>

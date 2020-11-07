@@ -1,3 +1,11 @@
 .CSChoice{
     width: 400px;
 }
+@media only screen and (max-width: 600px) {
+    .CSChoice{
+        width: 200px;
+    }
+    .charts{
+        padding-right: 10px;
+    }
+}

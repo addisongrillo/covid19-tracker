@@ -12,7 +12,8 @@ function Stats(props) {
         <>
             <Card className="statsCard">
                 <CardContent className="statsCardContent">
-                    <div className="keysAndNumbers">
+                    <div className="statGroup">
+                    <div className="keys">
                         <Typography variant="h6" className="statType" color="textPrimary" gutterBottom>
                             Cases
                         </Typography>
@@ -22,7 +23,7 @@ function Stats(props) {
                         </Typography>
                         <Divider />
                     </div>
-                    <div className="keysAndNumbers">
+                    <div className="Numbers">
                         <Typography variant="h6" className="statType" color="textPrimary" gutterBottom>
                             {parseInt(props.stats.cases).toLocaleString()}
                         </Typography>
@@ -32,7 +33,9 @@ function Stats(props) {
                         </Typography>
                         <Divider />
                     </div>
-                    <div className="keysAndNumbers">
+                    </div>
+                    <div className="statGroup">
+                    <div className="keys">
                         <Typography variant="h6" className="statType" color="textPrimary" gutterBottom>
                             Deaths
                         </Typography>
@@ -42,7 +45,7 @@ function Stats(props) {
                         </Typography>
                         <Divider />
                     </div>
-                    <div className="keysAndNumbers">
+                    <div className="Numbers">
                         <Typography variant="h6" className="statType" color="textPrimary" gutterBottom>
                             {parseInt(props.stats.deaths).toLocaleString()}
                         </Typography>
@@ -52,7 +55,9 @@ function Stats(props) {
                         </Typography>
                         <Divider />
                     </div>
-                    <div className="keysAndNumbers">
+                    </div>
+                    <div className="statGroup">
+                    <div className="keys">
                         <Typography variant="h6" className="statType" color="textPrimary" gutterBottom>
                             Recovered
                         </Typography>
@@ -62,7 +67,7 @@ function Stats(props) {
                         </Typography>
                         <Divider />
                     </div>
-                    <div className="keysAndNumbers">
+                    <div className="Numbers">
                         <Typography variant="h6" className="statType" color="textPrimary" gutterBottom>
                             {parseInt(props.stats.recovered).toLocaleString()}
                         </Typography>
@@ -71,6 +76,7 @@ function Stats(props) {
                             {parseInt(props.stats.active).toLocaleString()}
                         </Typography>
                         <Divider />
+                    </div>
                     </div>
                 </CardContent>
 

@@ -12,6 +12,29 @@
 .statType{
     margin:20px;
 }
-.keysAndNumbers{
+.keys{
     margin-left: 50px;
+}
+.Numbers{
+    margin-left: 20px;
+}
+.statGroup{
+    display: flex;
+}
+@media only screen and (max-width: 600px) {
+.statsCardContent{
+    flex-direction: column;
+}
+.statGroup{
+    justify-content: space-between;
+}
+.keys{
+    margin-left: 0px;
+    text-align: left;
+}
+.Numbers{
+    margin-left: 30px;
+    text-align: right;
+}
+
 }
