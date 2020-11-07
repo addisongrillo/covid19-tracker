@@ -240,7 +240,7 @@ function CountryState(props) {
                     CountryStateCases.length > 0 &&
                     <div>
                         <h1>Total Cases</h1>
-                        <Chart className="charts" height={mobile == false ? 400: 200} autoFit="true" forceUpdate="true" data={CountryStateCases} interactions={['active-region']}  >
+                        <Chart className="charts" height={mobile === false ? 400: 200} autoFit="true" forceUpdate="true" data={CountryStateCases} interactions={['active-region']}  >
                             <Interval position="day*cases" />
                             <Tooltip shared />
                         </Chart>
@@ -250,7 +250,7 @@ function CountryState(props) {
                     CountryStateNewCases.length > 0 &&
                     <div>
                         <h1>New Cases</h1>
-                        <Chart className="charts" height={mobile == false ? 400: 200} autoFit="true" forceUpdate="true" data={CountryStateNewCases} interactions={['active-region']}  >
+                        <Chart className="charts" height={mobile === false ? 400: 200} autoFit="true" forceUpdate="true" data={CountryStateNewCases} interactions={['active-region']}  >
                             <Interval position="day*cases" />
                             <Tooltip shared />
                         </Chart>
@@ -260,7 +260,7 @@ function CountryState(props) {
                     CountryStateDeaths.length > 0 &&
                     <div>
                         <h1>Total Deaths</h1>
-                        <Chart className="charts" height={mobile == false ? 400: 200} autoFit="true" forceUpdate="true" data={CountryStateDeaths} interactions={['active-region']}  >
+                        <Chart className="charts" height={mobile === false ? 400: 200} autoFit="true" forceUpdate="true" data={CountryStateDeaths} interactions={['active-region']}  >
                             <Interval position="day*deaths" />
                             <Tooltip shared />
                         </Chart>
@@ -270,7 +270,7 @@ function CountryState(props) {
                     CountryStateNewDeaths.length > 0 &&
                     <div>
                         <h1>New Deaths</h1>
-                        <Chart className="charts" height={mobile == false ? 400: 200} autoFit="true" forceUpdate="true" data={CountryStateNewDeaths} interactions={['active-region']}  >
+                        <Chart className="charts" height={mobile === false ? 400: 200} autoFit="true" forceUpdate="true" data={CountryStateNewDeaths} interactions={['active-region']}  >
                             <Interval position="day*deaths" />
                             <Tooltip shared />
                         </Chart>
